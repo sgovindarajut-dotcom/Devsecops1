@@ -77,8 +77,8 @@ data "aws_ami" "amazon_linux" {
   owners = ["amazon"] # Canonical
 }
 
-resource "aws_iam_role" "test_role" {
-  name = "test_role"
+resource "aws_iam_role" "test_role1" {
+  name = "test_role1"
 
   assume_role_policy = <<EOF
 {
@@ -97,14 +97,14 @@ resource "aws_iam_role" "test_role" {
 EOF
 }
 
-resource "aws_iam_instance_profile" "test_profile" {
-  name = "test_profile"
-  role = "${aws_iam_role.test_role.name}"
+resource "aws_iam_instance_profile" "test_profile1" {
+  name = "test_profile1"
+  role = "${aws_iam_role.test_role1.name}"
 }
 
 resource "aws_iam_role_policy" "test_policy" {
   name = "test_policy"
-  role = "${aws_iam_role.test_role.id}"
+  role = "${aws_iam_role.test_role1.id}"
 
   policy = <<EOF
 {
@@ -121,10 +121,10 @@ EOF
 }
 
 resource "aws_instance" "web" {
-  ami             = "ami-0f00d706c4a80fd93"
-  instance_type   = "t2.medium" 
+  ami             = "ami-0820d0c589175bc01"
+  instance_type   = "c7i-flex.large" 
   key_name        = var.key_name
-  iam_instance_profile = "${aws_iam_instance_profile.test_profile.name}"
+  iam_instance_profile = "${aws_iam_instance_profile.test_profile1.name}"
   security_groups = [aws_security_group.jenkins_sg.name]
   user_data       = "${file("install_jenkins.sh")}"
   tags = {
