@@ -6,7 +6,7 @@ pipeline {
    stages{
     stage('CompileandRunSonarAnalysis') {
             steps {	
-		sh 'mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=asgbuggywebapp0507_asgbuggywebapp -Dsonar.organization=asgbuggywebapp0507 -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=4f4024fad82ca214c1cf57367e5c11bb34b0eb21'
+		sh 'mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=asgbuggywebapp0507_asgbuggywebapp -Dsonar.organization=asgbuggywebapp0507 -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=6b2e10bcdc60f9555eeea2e3a710310e499ad73c'
 			}
     }
 	stage('RunSCAAnalysisUsingSnyk') {
@@ -29,7 +29,7 @@ pipeline {
 	stage('Push') {
             steps {
                 script{
-                    docker.withRegistry('https://291483628871.dkr.ecr.us-east-1.amazonaws.com/asg', 'ecr:us-east-1:aws-credentials') {
+                    docker.withRegistry('https://309487859849.dkr.ecr.us-east-1.amazonaws.com/asg', 'ecr:us-east-1:aws-credentials') {
                     app.push("latest")                                                                        
                     }
                 }
